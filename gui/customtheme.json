@@ -1,0 +1,40 @@
+{
+  "CTk": {
+    "fg_color": "white"
+  },
+
+  "CTkButton": {
+    "fg_color": "red"
+  },
+
+  "CTkFrame": {
+    "fg_color": "gray",
+    "border_color": "black",
+    "corner_radius": 10,
+    "border_width": 1
+  },
+
+  "CTkLabel": {
+    "fg_color": "white",
+    "text_color": "black",
+    "corner_radius": 0
+  },
+
+  "CTkFont": {
+    "macOS": {
+      "family": "SF Display",
+      "size": 13,
+      "weight": "normal"
+    },
+    "Windows": {
+      "family": "Roboto",
+      "size": 13,
+      "weight": "normal"
+    },
+    "Linux": {
+      "family": "Roboto",
+      "size": 13,
+      "weight": "normal"
+    }
+  }
+}
