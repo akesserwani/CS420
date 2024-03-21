@@ -1,21 +1,28 @@
 {
   "CTk": {
-    "fg_color": "white"
+    "fg_color": "#FAFAFA"
   },
 
   "CTkButton": {
-    "fg_color": "red"
+    "fg_color": "#484b6a",
+    "corner_radius": 5,
+    "border_width": 0,
+    "hover_color": "black",
+    "border_color": "white",
+    "text_color": "white",
+    "text_color_disabled":"gray"
   },
 
   "CTkFrame": {
-    "fg_color": "gray",
-    "border_color": "black",
+    "fg_color": "#FAFAFA",
+    "border_color": "gray",
     "corner_radius": 10,
-    "border_width": 1
+    "border_width": 2,
+    "top_fg_color": "#FAFAFA"
   },
 
   "CTkLabel": {
-    "fg_color": "white",
+    "fg_color": "transparent",
     "text_color": "black",
     "corner_radius": 0
   },
@@ -28,7 +35,7 @@
     },
     "Windows": {
       "family": "Roboto",
-      "size": 13,
+      "size": 15,
       "weight": "normal"
     },
     "Linux": {
