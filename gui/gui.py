@@ -61,6 +61,13 @@ def main():
 #######################################################################################################
     # Create the preprogrammed buttons frame (MOVEMENTS FRAME)
     #TODO
+    innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
+    preprogrammedButtons = []
+    for i in range(4):
+        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, text="Movement 1", command=testFunction))
+    
+    for i in range(4):
+        preprogrammedButtons[i].pack()
 
 #######################################################################################################
     # Create the controls frame on the east
