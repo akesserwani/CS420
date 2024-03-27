@@ -1,5 +1,6 @@
 # PYTHON 3.9.6
 import customtkinter as ctk
+from helpers import *
 
 # PROJECT DOCS
 # https://docs.google.com/document/d/1nPIF0tEGJduzCj4uC4_EYdg9k11v1ASdr1NoHzhgJb8/edit
@@ -22,39 +23,48 @@ def main():
     win.geometry("1000x500")        # sets default dimensions of the main window
     win.iconbitmap(None)            # set tkinter icon (can change later TODO)
 
+####################################################################################################
     # Create the active data frame to put on the west side of the main window
-    outerDataFrame = ctk.CTkFrame(win,
-                             width=600,
-                             height=400)
-    innerDataFrame = ctk.CTkFrame(outerDataFrame,
-                             width=800,
-                             height=400,
-                             border_width=0)
+    innerWestFrame, outerWestFrame  = createNiceFrame(win, x=800, y=400)
     
+    batteryLabel = ctk.CTkLabel(innerWestFrame, text="Battery")
+    batteryPercentageLabel = ctk.CTkLabel(innerWestFrame, text="p%", text_color="gray")
     
-    batteryLabel = ctk.CTkLabel(innerDataFrame, text="Battery")
-    batteryPercentageLabel = ctk.CTkLabel(innerDataFrame, text="p%", text_color="gray")
+    altitudeLabel = ctk.CTkLabel(innerWestFrame, text="Altitude (cm)")
+    altitudeValueLabel = ctk.CTkLabel(innerWestFrame, text="1000", text_color="gray")
     
-    altitudeLabel = ctk.CTkLabel(innerDataFrame, text="Altitude (cm)")
-    altitudeValueLabel = ctk.CTkLabel(innerDataFrame, text="1000", text_color="gray")
+    speedLabel = ctk.CTkLabel(innerWestFrame, text="Speed (cm/s)")
+    speedValueLabel = ctk.CTkLabel(innerWestFrame, text="100", text_color="gray")
     
-    speedLabel = ctk.CTkLabel(innerDataFrame, text="Speed (cm/s)")
-    speedValueLabel = ctk.CTkLabel(innerDataFrame, text="100", text_color="gray")
-    
-    emergencyButton = ctk.CTkButton(outerDataFrame, text="Emergency", width=100, height=30, command=testFunction)
+    emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=testFunction)
 
+#######################################################################################################
     # Create the LED frame
     #TODO
 
+#######################################################################################################
     # Create the preprogrammed buttons frame
     #TODO
 
+#######################################################################################################
     # Create the controls frame on the east
-    #TODO
+    innerEastFrame, outerEastFrame = createNiceFrame(win, x=200, y=400)
 
+    takeOffButton = ctk.CTkButton(innerEastFrame, text="take off", command=testFunction)
+    landButton = ctk.CTkButton(innerEastFrame, text="land", command=testFunction)
+    increaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="+ Altitude", command=testFunction)
+    decreaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="- Altitude", command=testFunction)
+
+    takeOffButton.pack(ipadx=25, ipady=10, pady=7)
+    landButton.pack(ipadx=25, ipady=10, pady=7)
+    increaseAltitudeButton.pack(ipadx=25, ipady=10, pady=7)
+    decreaseAltitudeButton.pack(ipadx=25, ipady=10, pady=7)
+
+#######################################################################################################
     # Create active camera feed frame in the center
     #TODO
 
+#######################################################################################################
     # widget placements using layout manager (Grid is most likely candidate since our window isn't resizeable anyways)
 
     leftColPaddingX = 25
@@ -70,14 +80,15 @@ def main():
     speedLabel.grid(row=2, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
     speedValueLabel.grid(row=2, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
     
-
-    innerDataFrame.pack(padx=(2, 2), pady=(2,2), anchor="center")
     emergencyButton.pack(ipadx=leftColPaddingX, ipady=10)
-    outerDataFrame.pack(ipady=10, ipadx=10)
+
+    
+    outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10)
+    outerEastFrame.grid(row=0, column=1, ipady=10, ipadx=10)
+    #######################################################################################################
     
 
 
-    
     win.mainloop()                  # keeps the window looping
 
 main()
