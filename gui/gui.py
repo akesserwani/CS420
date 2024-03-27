@@ -39,11 +39,15 @@ def main():
     emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=testFunction)
 
 #######################################################################################################
-    # Create the LED frame
+    # Create the turn left frame
     #TODO
 
 #######################################################################################################
-    # Create the preprogrammed buttons frame
+    # Create the turn right frame
+    #TODO
+
+#######################################################################################################
+    # Create the preprogrammed buttons frame (MOVEMENTS FRAME)
     #TODO
 
 #######################################################################################################
@@ -62,6 +66,7 @@ def main():
 
 #######################################################################################################
     # Create active camera feed frame in the center
+    centerFrame = ctk.CTkFrame(win, width=500, height=300, fg_color="black")
     #TODO
 
 #######################################################################################################
@@ -83,8 +88,9 @@ def main():
     emergencyButton.pack(ipadx=leftColPaddingX, ipady=10)
 
     
-    outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10)
-    outerEastFrame.grid(row=0, column=1, ipady=10, ipadx=10)
+    outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10, padx=10)
+    centerFrame.grid(row=0, column=1, ipady=10, ipadx=10, padx=10)
+    outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10)
     #######################################################################################################
     
 
