@@ -1,6 +1,13 @@
 # PYTHON 3.9.6
 import customtkinter as ctk
 
+# PROJECT DOCS
+# https://docs.google.com/document/d/1nPIF0tEGJduzCj4uC4_EYdg9k11v1ASdr1NoHzhgJb8/edit
+
+def testFunction():
+    #TODO make drone emergency land.
+    print("test")
+
 def main():
     # set theme to our custom theme
     # see this for more information:    https://customtkinter.tomschimansky.com/documentation/color
@@ -34,7 +41,7 @@ def main():
     speedLabel = ctk.CTkLabel(innerDataFrame, text="Speed (cm/s)")
     speedValueLabel = ctk.CTkLabel(innerDataFrame, text="100", text_color="gray")
     
-    emergencyButton = ctk.CTkButton(outerDataFrame, text="Emergency", width=100, height=30)
+    emergencyButton = ctk.CTkButton(outerDataFrame, text="Emergency", width=100, height=30, command=testFunction)
 
     # Create the LED frame
     #TODO

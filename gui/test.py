@@ -1,22 +1,15 @@
-import tkinter as tk
+import tkinter
+import customtkinter  # <- import the CustomTkinter module
 
-def main():
-    root = tk.Tk()
-    root.title("Frame Border Padding Example")
+root_tk = tkinter.Tk()  # create the Tk window like you normally do
+root_tk.geometry("400x240")
+root_tk.title("CustomTkinter Test")
 
-    # Create an outer frame with padding
-    outer_frame = tk.Frame(root, bg="gray", padx=10, pady=10)
-    outer_frame.grid(row=0, column=0)
+def button_function():
+    print("button pressed")
 
-    # Create an inner frame
-    inner_frame = tk.Frame(outer_frame, bg="lightblue", width=300, height=200)
-    inner_frame.grid(row=0, column=0)
+# Use CTkButton instead of tkinter Button
+button = customtkinter.CTkButton(master=root_tk, corner_radius=10, command=button_function)
+button.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
-    # Adding some widgets inside the inner frame
-    label = tk.Label(inner_frame, text="This is a frame with border padding")
-    label.grid(row=0, column=0, padx=20, pady=20)
-
-    root.mainloop()
-
-if __name__ == "__main__":
-    main()
+root_tk.mainloop()
