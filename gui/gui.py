@@ -37,6 +37,21 @@ def main():
     speedValueLabel = ctk.CTkLabel(innerWestFrame, text="100", text_color="gray")
     
     emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=testFunction)
+    
+    leftColPaddingX = 25
+    PaddingY = 20
+    rightColPaddingX = 10
+    
+    batteryLabel.grid(row=0, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
+    batteryPercentageLabel.grid(row=0, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
+    
+    altitudeLabel.grid(row=1, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
+    altitudeValueLabel.grid(row=1, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
+    
+    speedLabel.grid(row=2, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
+    speedValueLabel.grid(row=2, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
+    
+    emergencyButton.pack(ipadx=leftColPaddingX, ipady=10)
 
 #######################################################################################################
     # Create the turn left frame
@@ -93,29 +108,12 @@ def main():
 
 #######################################################################################################
     # widget placements using layout manager (Grid is most likely candidate since our window isn't resizeable anyways)
-
-    leftColPaddingX = 25
-    PaddingY = 20
-    rightColPaddingX = 10
-    
-    batteryLabel.grid(row=0, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
-    batteryPercentageLabel.grid(row=0, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
-    
-    altitudeLabel.grid(row=1, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
-    altitudeValueLabel.grid(row=1, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
-    
-    speedLabel.grid(row=2, column=0, ipadx=leftColPaddingX, ipady=PaddingY, sticky="w")
-    speedValueLabel.grid(row=2, column=1, ipadx=rightColPaddingX, ipady=PaddingY)
-    
-    emergencyButton.pack(ipadx=leftColPaddingX, ipady=10)
-
-    
-    outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10, padx=10)
-    centerFrame.grid(row=0, column=1, ipady=10, ipadx=10, padx=10, pady=5)
-    outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10)
+    outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10, padx=10, pady=20, sticky="n")
+    centerFrame.grid(row=0, column=1, padx=10, pady=20, sticky="s")
+    outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10, pady=20, sticky="n")
 
     outerLeftFrame.grid(row=1, column=0, ipady=10, ipadx=10, padx=10)
-    outerSouthFrame.grid(row=1, column=1, ipady=10, ipadx=10, padx=10)
+    outerSouthFrame.grid(row=1, column=1, ipady=10, ipadx=10, padx=10, sticky="s")
     outerRightFrame.grid(row=1, column=2, ipady=10, ipadx=10, padx=10)
     #######################################################################################################
     
