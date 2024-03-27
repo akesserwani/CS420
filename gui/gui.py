@@ -40,7 +40,13 @@ def main():
 
 #######################################################################################################
     # Create the turn left frame
-    #TODO
+    innerLeftFrame, outerLeftFrame = createNiceFrame(win, x=200, y=200)
+
+    turnLeftButton = ctk.CTkButton(innerLeftFrame, text="turn left", command=testFunction)
+    yawLeftButton = ctk.CTkButton(innerLeftFrame, text="yaw left", command=testFunction)
+
+    turnLeftButton.pack(ipadx=25, ipady=10, pady=7)
+    yawLeftButton.pack(ipadx=25, ipady=10, pady=7)
 
 #######################################################################################################
     # Create the turn right frame
@@ -91,6 +97,8 @@ def main():
     outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10, padx=10)
     centerFrame.grid(row=0, column=1, ipady=10, ipadx=10, padx=10)
     outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10)
+
+    outerLeftFrame.grid(row=1, column=0, ipady=10, ipadx=10, padx=10)
     #######################################################################################################
     
 
