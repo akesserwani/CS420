@@ -20,7 +20,7 @@ def main():
     win = ctk.CTk()
     win.resizable(False, False)     # main window cannot be resized
     win.title("Aerial Ace")         # sets the title fo the window to "Aerial Ace"
-    win.geometry("1000x500")        # sets default dimensions of the main window
+    win.geometry("1010x510")        # sets default dimensions of the main window
     win.iconbitmap(None)            # set tkinter icon (can change later TODO)
 
 ####################################################################################################
@@ -64,10 +64,14 @@ def main():
     innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
     preprogrammedButtons = []
     for i in range(4):
-        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, text="Movement 1", command=testFunction))
+        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text="Movement 1", command=testFunction))
+        # WHEN THE FUNCTION OF THIS BUTTON IS ASSIGNED, BE SURE TO ASSIGN CORRECT COMMANDS AS WELL
     
-    for i in range(4):
-        preprogrammedButtons[i].pack()
+    preprogrammedButtons[0].grid(row=0, column=0, padx=10, pady=10)
+    preprogrammedButtons[1].grid(row=0, column=1, padx=10, pady=10)
+    preprogrammedButtons[2].grid(row=1, column=0, padx=10, pady=0)
+    preprogrammedButtons[3].grid(row=1, column=1, padx=10, pady=0)
+    
 
 #######################################################################################################
     # Create the controls frame on the east
@@ -85,7 +89,7 @@ def main():
 
 #######################################################################################################
     # Create active camera feed frame in the center
-    centerFrame = ctk.CTkFrame(win, width=500, height=300, fg_color="black")
+    centerFrame = ctk.CTkFrame(win, width=500, height=300, fg_color="black", border_color="white")
 
 #######################################################################################################
     # widget placements using layout manager (Grid is most likely candidate since our window isn't resizeable anyways)
@@ -107,16 +111,14 @@ def main():
 
     
     outerWestFrame.grid(row=0, column=0, ipady=10, ipadx=10, padx=10)
-    centerFrame.grid(row=0, column=1, ipady=10, ipadx=10, padx=10)
+    centerFrame.grid(row=0, column=1, ipady=10, ipadx=10, padx=10, pady=5)
     outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10)
 
     outerLeftFrame.grid(row=1, column=0, ipady=10, ipadx=10, padx=10)
-
+    outerSouthFrame.grid(row=1, column=1, ipady=10, ipadx=10, padx=10)
     outerRightFrame.grid(row=1, column=2, ipady=10, ipadx=10, padx=10)
     #######################################################################################################
     
-
-
     win.mainloop()                  # keeps the window looping
 
 main()

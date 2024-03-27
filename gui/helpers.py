@@ -33,6 +33,6 @@ def createNiceFrame(root: ctk.CTk, x=800, y=400) -> tuple[ctk.CTkFrame, ctk.CTkF
                              height=y,
                              border_width=0)
     
-    innerDataFrame.pack(padx=(2, 2), pady=(20,20), anchor="center")
+    innerDataFrame.pack(padx=(2, 2), pady=(10,5), anchor="center")
 
     return (innerDataFrame, outerDataFrame)
