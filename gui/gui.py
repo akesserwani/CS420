@@ -1,7 +1,11 @@
 # PYTHON 3.9.6
 import customtkinter as ctk
 
+# PROJECT DOCS
+# https://docs.google.com/document/d/1nPIF0tEGJduzCj4uC4_EYdg9k11v1ASdr1NoHzhgJb8/edit
+
 def testFunction():
+    #TODO make drone emergency land.
     print("test")
 
 def main():
