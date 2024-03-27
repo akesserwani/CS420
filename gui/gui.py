@@ -50,7 +50,13 @@ def main():
 
 #######################################################################################################
     # Create the turn right frame
-    #TODO
+    innerRightFrame, outerRightFrame = createNiceFrame(win, x=200, y=200)
+
+    turnRightButton = ctk.CTkButton(innerRightFrame, text="turn right", command=testFunction)
+    yawRightButton = ctk.CTkButton(innerRightFrame, text="yaw right", command=testFunction)
+
+    turnRightButton.pack(ipadx=25, ipady=10, pady=7)
+    yawRightButton.pack(ipadx=25, ipady=10, pady=7)
 
 #######################################################################################################
     # Create the preprogrammed buttons frame (MOVEMENTS FRAME)
@@ -73,7 +79,6 @@ def main():
 #######################################################################################################
     # Create active camera feed frame in the center
     centerFrame = ctk.CTkFrame(win, width=500, height=300, fg_color="black")
-    #TODO
 
 #######################################################################################################
     # widget placements using layout manager (Grid is most likely candidate since our window isn't resizeable anyways)
@@ -99,6 +104,8 @@ def main():
     outerEastFrame.grid(row=0, column=2, ipady=10, ipadx=10, padx=10)
 
     outerLeftFrame.grid(row=1, column=0, ipady=10, ipadx=10, padx=10)
+
+    outerRightFrame.grid(row=1, column=2, ipady=10, ipadx=10, padx=10)
     #######################################################################################################
     
 
