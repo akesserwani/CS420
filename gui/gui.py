@@ -1,9 +1,18 @@
 # PYTHON 3.9.6
 import customtkinter as ctk
 from helpers import *
+from djitellopy import Tello
+
 
 # PROJECT DOCS
 # https://docs.google.com/document/d/1nPIF0tEGJduzCj4uC4_EYdg9k11v1ASdr1NoHzhgJb8/edit
+
+#Initialize drone 
+tello = Tello()
+
+tello.connect()
+
+
 
 #Functions for buttons
 def testFunction():
@@ -13,6 +22,9 @@ def testFunction():
 #take off function
 def takeOff():
     print("Take off")
+    
+    tello.takeoff()
+
 
 #function to land
 def land():
@@ -150,7 +162,7 @@ def main():
     innerEastFrame, outerEastFrame = createNiceFrame(win, x=200, y=400)
 
     takeOffButton = ctk.CTkButton(innerEastFrame, text="take off", command=takeOff)
-    landButton = ctk.CTkButton(innerEastFrame, text="land", command=testFunction)
+    landButton = ctk.CTkButton(innerEastFrame, text="land", command=land)
     increaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="+ Altitude", command=increaseAlt())
     decreaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="- Altitude", command=decreaseAlt())
 
