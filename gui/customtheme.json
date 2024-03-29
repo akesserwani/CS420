@@ -21,6 +21,10 @@
     "top_fg_color": "#FAFAFA"
   },
 
+  "CTkToplevel": {
+    "fg_color": "white"
+  },
+
   "CTkLabel": {
     "fg_color": "transparent",
     "text_color": "black",

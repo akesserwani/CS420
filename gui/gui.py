@@ -8,9 +8,9 @@ from djitellopy import Tello
 # https://docs.google.com/document/d/1nPIF0tEGJduzCj4uC4_EYdg9k11v1ASdr1NoHzhgJb8/edit
 
 #Initialize drone 
-tello = Tello()
+#tello = Tello()
 
-tello.connect()
+#tello.connect()
 
 
 
@@ -23,7 +23,7 @@ def testFunction():
 def takeOff():
     print("Take off")
     
-    tello.takeoff()
+    #tello.takeoff()
 
 
 #function to land
@@ -71,8 +71,9 @@ def yawLeft():
 
 #emergency button
 #KILLS ALL ENGINES
-def emergency():
+def emergency(root: ctk.CTk):
     print("Killing all engines")
+    confirmBox = ctk.CTkToplevel(root)
 
 
 
@@ -105,7 +106,7 @@ def main():
     speedLabel = ctk.CTkLabel(innerWestFrame, text="Speed (cm/s)")
     speedValueLabel = ctk.CTkLabel(innerWestFrame, text="100", text_color="gray")
     
-    emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=emergency())
+    emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=lambda: emergency(win))
     
     leftColPaddingX = 25
     PaddingY = 20
@@ -147,8 +148,10 @@ def main():
     #TODO
     innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
     preprogrammedButtons = []
+    programmedButtonFunctions = [movement1, movement2, movement3, movement4]
+    buttonNames = ["Circle", "Square", "Rectangle", "Flip"]
     for i in range(4):
-        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text="Movement " + str(i + 1), command=movement1))
+        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text=buttonNames[i] + str(i + 1), command=programmedButtonFunctions[i]))
         # WHEN THE FUNCTION OF THIS BUTTON IS ASSIGNED, BE SURE TO ASSIGN CORRECT COMMANDS AS WELL
     
     preprogrammedButtons[0].grid(row=0, column=0, padx=10, pady=10)
