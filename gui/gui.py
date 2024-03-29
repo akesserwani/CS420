@@ -22,7 +22,7 @@ def testFunction():
 #take off function
 def takeOff():
     print("Take off")
-    
+
     tello.takeoff()
 
 
@@ -30,50 +30,68 @@ def takeOff():
 def land():
     print("Land")
 
+    tello.land()
+
+
 #function to increase alt/go up
 def increaseAlt():
     print("Increase Alt")
+
+    tello.move_up(50)
 
 #function to decrease alt/go down
 def decreaseAlt():
     print("Decrease Alt")
 
+    tello.move_down(50)
+
 #function to turn right
 def turnRight():
     print("Turn Right")
+
+    tello.move_right(50)
     
 #function to yaw right
 def yawRight():
     print("Yaw Right")
 
-#function to trigger movements
-    
-#Square Shape
-def movement1():
-    print("Movement 1")
-    
-def movement2():
-    print("Movement 2")
-
-def movement3():
-    print("Movement 3")
-
-def movement4():
-    print("Movement 4")
+    tello.rotate_clockwise(50)
 
 #function to turn left
 def turnLeft():
     print("Turn Left")
+
+    tello.move_left(50)
     
 #function to yaw left
 def yawLeft():
     print("Yaw Left")
+    
+    tello.rotate_counter_clockwise(50)
+
+#function to trigger movements
+    
+#Square Shape
+def movement1():
+    print("Circle")
+    
+def movement2():
+    print("Square")
+
+def movement3():
+    print("Rectangle")
+
+def movement4():
+    print("Flip")
+
+    tello.flip_forward()
 
 #emergency button
 #KILLS ALL ENGINES
 def emergency():
     print("Killing all engines")
 
+    tello.emergency()
 
 
 
@@ -147,8 +165,11 @@ def main():
     #TODO
     innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
     preprogrammedButtons = []
+    programmedButtonFunctions = [movement1, movement2, movement3, movement4]
+    buttonNames = ["Circle", "Square", "Rectangle", "Flip"]
+
     for i in range(4):
-        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text="Movement " + str(i + 1), command=movement1))
+        preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text=buttonNames[i], command=programmedButtonFunctions[i]))
         # WHEN THE FUNCTION OF THIS BUTTON IS ASSIGNED, BE SURE TO ASSIGN CORRECT COMMANDS AS WELL
     
     preprogrammedButtons[0].grid(row=0, column=0, padx=10, pady=10)
