@@ -2,6 +2,7 @@
 import customtkinter as ctk
 from helpers import *
 from djitellopy import Tello
+import cv2
 
 
 # PROJECT DOCS
@@ -15,9 +16,6 @@ tello.connect()
 
 
 #Functions for buttons
-def testFunction():
-    #TODO make drone emergency land.
-    print("test")
 
 #take off function
 def takeOff():
@@ -74,16 +72,26 @@ def yawLeft():
 #Square Shape
 def movement1():
     print("Circle")
+
     
 def movement2():
-    print("Square")
+    for i in range(0,9):
+        tello.move_up(100)
+        tello.move_right(100)
+        tello.move_down(100)
+        tello.move_left(100)
+
 
 def movement3():
-    print("Rectangle")
+    for i in range(0,9):
+        tello.move_up(100)
+        tello.move_right(150)
+        tello.move_down(100)
+        tello.move_left(150)
 
 def movement4():
     print("Flip")
-
+    
     tello.flip_forward()
 
 #emergency button
@@ -92,6 +100,48 @@ def emergency():
     print("Killing all engines")
 
     tello.emergency()
+
+
+
+#functions for active text
+#text will update every 5 seconds
+#get_battery()
+def updateBattery(batteryLabel):
+    #get battery level 
+    battery_level = tello.get_battery()  
+    #configure the batteryLabel which is the parameter passed 
+    batteryLabel.configure(text=f"{battery_level}%", text_color="gray")  
+    #batter label updates every 1000 miliseconds -> 1 second
+    #call recursively to update
+    batteryLabel.after(1000, lambda: updateBattery(batteryLabel))  
+    
+#get_barometer() -> displays in cm
+def updateAlt(altLabel, locationAlt):
+    #get barometer level
+    current_alt = tello.get_barometer()
+    #subtract locationAlt from current alt to get absolute altitude relative to level
+    # current_alt -= locationAlt
+
+    #convert to feet
+    #1 foot = 30.48 cm
+    current_alt = current_alt / 30.48
+    #configure the altLabel which is the parameter passed
+    altLabel.configure(text=f"{round(current_alt)}", text_color="gray")  
+    #alt label updates every 100 miliseconds -> 0.1 second
+    #call recursively to update
+    altLabel.after(1000, lambda: updateAlt(altLabel))  
+
+#get_speed_x() => cm/s
+def updateSpeed(speedLabel):
+    #get speed
+    current_speed = tello.get_speed_x()
+    #configure speed label
+    speedLabel.configure(text=f"{current_speed}", text_color="gray")  
+    #alt label updates every 100 miliseconds -> 0.1 second
+    #call recursively to update
+    speedLabel.after(1000, lambda: updateSpeed(speedLabel))  
+
+
 
 
 
@@ -114,16 +164,40 @@ def main():
     # Create the active data frame to put on the west side of the main window
     innerWestFrame, outerWestFrame  = createNiceFrame(win, x=800, y=400)
     
+    #text for battery label
+    #define global variable to be accessed outside main in updateBattery()
+    global batteryPercentageLabel
+    #label for "Battery" text
     batteryLabel = ctk.CTkLabel(innerWestFrame, text="Battery")
+    #main label for the changing percentage value
     batteryPercentageLabel = ctk.CTkLabel(innerWestFrame, text="p%", text_color="gray")
-    
-    altitudeLabel = ctk.CTkLabel(innerWestFrame, text="Altitude (cm)")
+    #batteryPercentageLabel is passed as a parameter to be changed every 1 second
+    updateBattery(batteryPercentageLabel)
+
+    #text for altitude label
+    #define global variable
+    global altitudeValueLabel
+    #label for altitude text
+    altitudeLabel = ctk.CTkLabel(innerWestFrame, text="Altitude (ft)")
+    #main label displaying changing altitude value
     altitudeValueLabel = ctk.CTkLabel(innerWestFrame, text="1000", text_color="gray")
+    #altitudeValueLabel is passed as parameter to be changed every 100 milisecond, 0.1 seconds
+    #pass a second variable as the starting altitude, this will be subtracted to find the absolute altitude, not sea level 
+    locationAlt = tello.get_barometer()
+    updateAlt(altitudeValueLabel, locationAlt)
     
+    #text for speed label
+    #define global variable
+    global speedValueLabel
+    #label for speed text
     speedLabel = ctk.CTkLabel(innerWestFrame, text="Speed (cm/s)")
+    #main label displaying changing speed value
     speedValueLabel = ctk.CTkLabel(innerWestFrame, text="100", text_color="gray")
-    
-    emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=emergency())
+    #speedValueLabel passed as parameter to be changed every 100 milisecond, 0.1 seconds
+    updateSpeed(speedValueLabel)
+
+    #emergency button
+    emergencyButton = ctk.CTkButton(outerWestFrame, text="Emergency", width=100, height=30, command=emergency)
     
     leftColPaddingX = 25
     PaddingY = 20
@@ -144,8 +218,8 @@ def main():
     # Create the turn left frame
     innerLeftFrame, outerLeftFrame = createNiceFrame(win, x=200, y=200)
 
-    turnLeftButton = ctk.CTkButton(innerLeftFrame, text="turn left", command=turnLeft())
-    yawLeftButton = ctk.CTkButton(innerLeftFrame, text="yaw left", command=yawLeft())
+    turnLeftButton = ctk.CTkButton(innerLeftFrame, text="turn left", command=turnLeft)
+    yawLeftButton = ctk.CTkButton(innerLeftFrame, text="yaw left", command=yawLeft)
 
     turnLeftButton.pack(ipadx=25, ipady=10, pady=7)
     yawLeftButton.pack(ipadx=25, ipady=10, pady=7)
@@ -154,15 +228,14 @@ def main():
     # Create the turn right frame
     innerRightFrame, outerRightFrame = createNiceFrame(win, x=200, y=200)
 
-    turnRightButton = ctk.CTkButton(innerRightFrame, text="turn right", command=turnRight())
-    yawRightButton = ctk.CTkButton(innerRightFrame, text="yaw right", command=yawRight())
+    turnRightButton = ctk.CTkButton(innerRightFrame, text="turn right", command=turnRight)
+    yawRightButton = ctk.CTkButton(innerRightFrame, text="yaw right", command=yawRight)
 
     turnRightButton.pack(ipadx=25, ipady=10, pady=7)
     yawRightButton.pack(ipadx=25, ipady=10, pady=7)
 
 #######################################################################################################
     # Create the preprogrammed buttons frame (MOVEMENTS FRAME)
-    #TODO
     innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
     preprogrammedButtons = []
     programmedButtonFunctions = [movement1, movement2, movement3, movement4]
@@ -184,8 +257,8 @@ def main():
 
     takeOffButton = ctk.CTkButton(innerEastFrame, text="take off", command=takeOff)
     landButton = ctk.CTkButton(innerEastFrame, text="land", command=land)
-    increaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="+ Altitude", command=increaseAlt())
-    decreaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="- Altitude", command=decreaseAlt())
+    increaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="+ Altitude", command=increaseAlt)
+    decreaseAltitudeButton = ctk.CTkButton(innerEastFrame, text="- Altitude", command=decreaseAlt)
 
     takeOffButton.pack(ipadx=25, ipady=10, pady=7)
     landButton.pack(ipadx=25, ipady=10, pady=7)
@@ -195,6 +268,9 @@ def main():
 #######################################################################################################
     # Create active camera feed frame in the center
     centerFrame = ctk.CTkFrame(win, width=500, height=300, fg_color="black", border_color="white")
+
+    
+
 
 #######################################################################################################
     # widget placements using layout manager (Grid is most likely candidate since our window isn't resizeable anyways)
