@@ -69,30 +69,28 @@ def yawLeft():
 
 #function to trigger movements
     
-#Square Shape
+#Front Flip
 def movement1():
-    print("Circle")
-
-    
-def movement2():
-    for i in range(0,9):
-        tello.move_up(100)
-        tello.move_right(100)
-        tello.move_down(100)
-        tello.move_left(100)
-
-
-def movement3():
-    for i in range(0,9):
-        tello.move_up(100)
-        tello.move_right(150)
-        tello.move_down(100)
-        tello.move_left(150)
-
-def movement4():
-    print("Flip")
-    
     tello.flip_forward()
+
+#Back Flip
+def movement2():
+    tello.flip_back()
+
+#Square
+def movement3():
+    tello.move_up(100)
+    tello.move_right(100)
+    tello.move_down(100)
+    tello.move_left(100)
+
+#Rectangle
+def movement4():
+    tello.move_up(100)
+    tello.move_right(150)
+    tello.move_down(100)
+    tello.move_left(150)
+    
 
 #emergency button
 #KILLS ALL ENGINES
@@ -113,10 +111,11 @@ def updateBattery(batteryLabel):
     batteryLabel.configure(text=f"{battery_level}%", text_color="gray")  
     #batter label updates every 1000 miliseconds -> 1 second
     #call recursively to update
+
     batteryLabel.after(1000, lambda: updateBattery(batteryLabel))  
     
 #get_barometer() -> displays in cm
-def updateAlt(altLabel, locationAlt):
+def updateAlt(altLabel):
     #get barometer level
     current_alt = tello.get_barometer()
     #subtract locationAlt from current alt to get absolute altitude relative to level
@@ -124,17 +123,18 @@ def updateAlt(altLabel, locationAlt):
 
     #convert to feet
     #1 foot = 30.48 cm
-    current_alt = current_alt / 30.48
+    # current_alt = current_alt / 30.48
     #configure the altLabel which is the parameter passed
     altLabel.configure(text=f"{round(current_alt)}", text_color="gray")  
     #alt label updates every 100 miliseconds -> 0.1 second
     #call recursively to update
+
     altLabel.after(1000, lambda: updateAlt(altLabel))  
 
 #get_speed_x() => cm/s
 def updateSpeed(speedLabel):
     #get speed
-    current_speed = tello.get_speed_x()
+    current_speed = tello.get_speed_y()
     #configure speed label
     speedLabel.configure(text=f"{current_speed}", text_color="gray")  
     #alt label updates every 100 miliseconds -> 0.1 second
@@ -170,7 +170,7 @@ def main():
     #label for "Battery" text
     batteryLabel = ctk.CTkLabel(innerWestFrame, text="Battery")
     #main label for the changing percentage value
-    batteryPercentageLabel = ctk.CTkLabel(innerWestFrame, text="p%", text_color="gray")
+    batteryPercentageLabel = ctk.CTkLabel(innerWestFrame, text="p", text_color="gray")
     #batteryPercentageLabel is passed as a parameter to be changed every 1 second
     updateBattery(batteryPercentageLabel)
 
@@ -183,8 +183,8 @@ def main():
     altitudeValueLabel = ctk.CTkLabel(innerWestFrame, text="1000", text_color="gray")
     #altitudeValueLabel is passed as parameter to be changed every 100 milisecond, 0.1 seconds
     #pass a second variable as the starting altitude, this will be subtracted to find the absolute altitude, not sea level 
-    locationAlt = tello.get_barometer()
-    updateAlt(altitudeValueLabel, locationAlt)
+    #locationAlt = tello.get_barometer()
+    updateAlt(altitudeValueLabel)
     
     #text for speed label
     #define global variable
@@ -239,7 +239,7 @@ def main():
     innerSouthFrame, outerSouthFrame = createNiceFrame(win, x=500, y=200)
     preprogrammedButtons = []
     programmedButtonFunctions = [movement1, movement2, movement3, movement4]
-    buttonNames = ["Circle", "Square", "Rectangle", "Flip"]
+    buttonNames = ["Front Flip", "Back Flip", "Square", "Rectangle"]
 
     for i in range(4):
         preprogrammedButtons.append(ctk.CTkButton(innerSouthFrame, width=200, height=40, text=buttonNames[i], command=programmedButtonFunctions[i]))
